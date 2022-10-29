@@ -37,7 +37,7 @@ def get_db():
                 password="password",
                 position="Engineer",
                 skills="Python, Sql",
-                name="Carlos"
+                name="Carlos Figueredo"
             )
             crud.create_user(db, user_in)
     try:

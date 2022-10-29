@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String
-
+from sqlalchemy.dialects.mysql import JSON
 
 from .database import Base
 
@@ -12,4 +12,4 @@ class User(Base):
     password = Column(String(50))
     name = Column(String(50), index=True)
     position = Column(String(50))
-    skills = Column(String(50))
+    skills = Column(JSON)

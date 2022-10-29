@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from . import crud, models, schemas
 from .database import SessionLocal, engine
-
+import json 
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
@@ -26,20 +26,27 @@ app.add_middleware(
 def get_db():
     db = SessionLocal()
 
-
+    # // '{"Python": "70", "SQL": "80", "Api Rest": "80", "Java": "73", "React": "56"}' // This works in python
+    # "{'Python': 70, 'SQL': 80, 'Api Rest': 80, 'Java': 73, 'React': 56}"
+    # "{\"Python\": 70, \"SQL\": 80, \"Api Rest\": 80, \"Java\": 73, \"React\": 56}" // This works in postman
     # Dummy data
     FIRST_USER = "ce.figueredo@gmail.com" 
     if FIRST_USER:
         user = crud.get_user_by_email(db, email=FIRST_USER) 
         if not user:
+            dictionary = {"Python": 70, "SQL": 80, "Api Rest": 80, "Java": 73, "React": 56}
+            json_object = json.dumps(dictionary, indent = 4) 
             user_in = schemas.User(    
                 email=FIRST_USER,
                 password="password",
                 position="Engineer",
-                skills="Python, Sql",
+                skills=json_object,
                 name="Carlos Figueredo"
             )
-            crud.create_user(db, user_in)
+            try:
+                crud.create_user(db, user_in)
+            except:
+                raise HTTPException(status_code=201, detail="Done")
     try:
         yield db
     finally:

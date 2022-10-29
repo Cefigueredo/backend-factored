@@ -1,5 +1,5 @@
-from pydantic import BaseModel
-
+from pydantic import BaseModel, Json
+from typing import Any
 
 class UserBase(BaseModel):
     email: str
@@ -10,7 +10,7 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     name: str
     position: str
-    skills: str
+    skills: Any
 
 
 class User(UserCreate):

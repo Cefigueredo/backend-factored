@@ -26,9 +26,6 @@ app.add_middleware(
 def get_db():
     db = SessionLocal()
 
-    # // '{"Python": "70", "SQL": "80", "Api Rest": "80", "Java": "73", "React": "56"}' // This works in python
-    # "{'Python': 70, 'SQL': 80, 'Api Rest': 80, 'Java': 73, 'React': 56}"
-    # "{\"Python\": 70, \"SQL\": 80, \"Api Rest\": 80, \"Java\": 73, \"React\": 56}" // This works in postman
     # Dummy data
     FIRST_USER = "ce.figueredo@gmail.com" 
     if FIRST_USER:
